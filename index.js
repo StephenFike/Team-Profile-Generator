@@ -54,6 +54,46 @@ const promptManager = () => {
                     return false;
                 }
             }
+        },
+        {
+            type: 'list',
+            name: 'employee',
+            message: 'Would you like to add an Engineer or Intern? Or are you finished adding members to your team?',
+            choices: ['Engineer', 'Intern' , 'Done']
         }
     ])
 }
+
+const promptEngineer = () => {
+    return inquirer.prompt([
+        {
+
+        },
+    ])
+}
+
+const promptIntern = () => {
+    return inquirer.prompt([
+        {
+
+        },
+    ])
+}
+
+promptManager()
+    .then(results => {
+        if (results.employee === 'Intern') {
+            promptIntern();
+        }
+        if (results.employee === 'Engineer') {
+            promptEngineer();
+        }
+        if (results.employee === 'Done') {
+            const pageHTML = generateHtml(results);
+
+            fs.writeFile('./dist/index.html', pageHTML, err =>{
+                if(err) throw new Error(err)
+                console.log('Page created!');
+            })
+        }
+    });
