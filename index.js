@@ -198,7 +198,6 @@ function createTeam() {
 
         const manager = new Manager(name, id, email, officeNumber);
         teamData.push(manager);
-        console.log(teamData);
         addTeamMemeber();
     })
 }
@@ -213,7 +212,6 @@ function addTeamMemeber() {
 
                 const intern = new Intern(name, id, email, school);
                 teamData.push(intern);
-                console.log(teamData);
                 addTeamMemeber()
             })
         }
@@ -224,7 +222,6 @@ function addTeamMemeber() {
 
                 const engineer = new Engineer(name, id, email, gitHub);
                 teamData.push(engineer);
-                console.log(teamData);
                 addTeamMemeber()
             })
         }
