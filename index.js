@@ -3,6 +3,7 @@ const fs = require('fs');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const generateHtml = require('./src/page-template');
 
 const teamData = [];
 
@@ -189,6 +190,7 @@ const promptIntern = () => {
         }
     ])
 }
+
 function createTeam() {
     promptManager()
     .then((managerInput) => {
@@ -197,7 +199,11 @@ function createTeam() {
         const manager = new Manager(name, id, email, officeNumber);
         teamData.push(manager);
         console.log(teamData);
+        addTeamMemeber();
     })
+}
+
+function addTeamMemeber() {
     promptNewMember()
     .then(newMemberInput => {
         if (newMemberInput.employee === 'Intern') {
@@ -208,6 +214,7 @@ function createTeam() {
                 const intern = new Intern(name, id, email, school);
                 teamData.push(intern);
                 console.log(teamData);
+                addTeamMemeber()
             })
         }
         if (newMemberInput.employee === 'Engineer') {
@@ -218,10 +225,11 @@ function createTeam() {
                 const engineer = new Engineer(name, id, email, gitHub);
                 teamData.push(engineer);
                 console.log(teamData);
+                addTeamMemeber()
             })
         }
         if (newMemberInput.employee === 'Done') {
-            const pageHTML = generateHtml(newMemberInput);
+            const pageHTML = generateHtml(teamData);
 
             fs.writeFile('./dist/index.html', pageHTML, err =>{
                 if(err) throw new Error(err)
